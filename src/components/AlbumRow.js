@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, Alert } from 'react-native';
 import { Container } from 'native-base';
 
+import Btn from './Button';
 import Card from './Card';
 import CardSection from './CardSection';
 const AlbumRow = ({album}) => {
@@ -39,6 +40,9 @@ const AlbumRow = ({album}) => {
 				<View>
 					<Image style={coverStyle} source={{ uri: image }} />
 				</View>
+			</CardSection>
+			<CardSection>
+				<Btn onPress={() => Alert.alert(`Buy ${title} now?`,'You will be redirected to amazon...')	}/>
 			</CardSection>
 		</Card>
 	);
