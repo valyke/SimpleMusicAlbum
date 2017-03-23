@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Alert } from 'react-native';
+import { Text, View, Image, Alert, ToastAndroid, Linking } from 'react-native';
 import { Container } from 'native-base';
 
 import Btn from './Button';
@@ -11,7 +11,8 @@ const AlbumRow = ({album}) => {
 		title, 
 		artist, 
 		thumbnail_image,
-		image
+		image,
+		url
 	} = album;
 
 	const { 
@@ -42,7 +43,14 @@ const AlbumRow = ({album}) => {
 				</View>
 			</CardSection>
 			<CardSection>
-				<Btn onPress={() => Alert.alert(`Buy ${title} now?`,'You will be redirected to amazon...')	}/>
+				<Btn onPress={() => 
+					Alert.alert(`Buy ${title} now?`,`You will be redirected to amazon to purchase album "${title}"`, [
+						{ text: 'Cancel', onPress: () => ToastAndroid.show('Purchase cancelled.', ToastAndroid.SHORT)},
+						{ text: 'Proceed', onPress: () => Linking.openURL(url) }
+					])
+				 }>
+				 BuUY NOW
+				 </Btn>
 			</CardSection>
 		</Card>
 	);

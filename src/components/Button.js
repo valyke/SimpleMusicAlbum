@@ -6,7 +6,7 @@ export default class Btn extends Component{
 		return(
         	<Content>
 	            <Button block onPress={this.props.onPress}>
-	                <Text>BUY NOW</Text>
+	                <Text>{this.props.children}</Text>
 	            </Button>
         	</Content>
 		);

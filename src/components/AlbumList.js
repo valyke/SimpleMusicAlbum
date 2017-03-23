@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, ToastAndroid } from 'react-native';
 
 import axios from 'axios';
 import AlbumRow from './AlbumRow';
@@ -8,13 +8,14 @@ class AlbumList extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { albums: [] };	
+		this.state = { albums: [], loaded: false };	
 	}
 
 	componentWillMount() {
 		axios.get('http://rallycoding.herokuapp.com/api/music_albums')
 		.then((response) => this.setState({
-			albums: response.data
+			albums: response.data,
+			loaded: true
 		}))
 		.catch(err => console.warn("Error fetching: ",err))
 	}
@@ -28,7 +29,7 @@ class AlbumList extends Component {
 	render() {	
 		//console.warn(albums);
 
-		
+		{ (this.state.loaded == false) ? ToastAndroid.show('Fetching Albums...', ToastAndroid.SHORT) : <Text></Text>}
 		return(
 			<ScrollView>
 				{this.renderAlbums()}
